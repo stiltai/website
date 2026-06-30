@@ -52,15 +52,20 @@
       height: 100%;
       border: 0;
       outline: 0;
-      background: #090913;
+      background: transparent;
       color: white;
       font-size: 1.45vw;
       padding-left: 5.5vw;
       padding-right: 1vw;
     }
 
+    .email-form input:focus,
+    .email-form input.has-value {
+      background: #080812;
+    }
+
     .email-form input::placeholder {
-      color: rgba(255,255,255,0.46);
+      color: transparent;
     }
 
     .email-form button {
@@ -88,28 +93,22 @@
     }
 
     @media (max-width: 900px) {
-      body {
-        overflow: auto;
-      }
-
+      body { overflow: auto; }
       .wrap {
         width: 100vw;
         height: 66.6667vw;
         min-height: auto;
       }
-
-      .email-form input {
-        font-size: 12px;
-      }
+      .email-form input { font-size: 12px; }
     }
   </style>
 </head>
 <body>
   <main class="wrap">
-    <img class="hero-image" src="hero.png?v=201" alt="Stilt AI landing page">
+    <img class="hero-image" src="hero.png?v=202" alt="Stilt AI landing page">
 
     <form class="email-form" id="form">
-      <input id="email" type="text" autocomplete="email" placeholder="Enter your email" />
+      <input id="email" type="text" autocomplete="email" />
       <button type="submit">Notify Me</button>
     </form>
 
@@ -118,12 +117,18 @@
 
   <script>
     const form = document.getElementById("form");
+    const email = document.getElementById("email");
     const message = document.getElementById("message");
+
+    email.addEventListener("input", function () {
+      email.classList.toggle("has-value", email.value.length > 0);
+    });
 
     form.addEventListener("submit", function(e) {
       e.preventDefault();
       message.classList.add("show");
       form.reset();
+      email.classList.remove("has-value");
     });
   </script>
 </body>
